@@ -20,7 +20,7 @@ namespace :build do
 
       File.open(json_file, 'w') do |file|
         doc = YAML.load_file(filename)
-        file << doc.merge(:__ATTN__ => note).to_json()
+        file << {:__ATTN__ => note}.merge!(doc).to_json()
       end
     end
   end
