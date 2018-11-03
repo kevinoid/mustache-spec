@@ -185,6 +185,21 @@ tests:
     template: '{{#a}}{{b.c}}{{/a}}'
     expected: ''
 
+  # From https://github.com/mustache/spec/issues/87#issuecomment-94545230
+  - name: Dotted Names - Single Period
+    desc: A single period should resolve to the top of the context stack.
+    data:
+      name: 'Alice'
+    template: '{{#name}}({{.}}){{/name}}'
+    expected: '(Alice)'
+
+  # From https://github.com/mustache/spec/issues/87#issuecomment-94545230
+  - name: Dotted Names - Root-level Single Period
+    desc: A single period at the root level should resolve to the passed-in data.
+    data: 'Alice'
+    template: '"{{.}}"'
+    expected: '"Alice"'
+
   # Whitespace Sensitivity
 
   - name: Interpolation - Surrounding Whitespace
