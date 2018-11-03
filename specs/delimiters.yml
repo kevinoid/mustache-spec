@@ -76,6 +76,31 @@ tests:
         I got interpolated.
       ]
 
+  - name: Inside Sections
+    desc: Delimiters set inside sections should persist.
+    data: { section: true, data: 'I got interpolated.' }
+    template: |
+      [
+      {{#section}}
+        {{data}}
+        |data|
+        {{= | | =}}
+      |/section|
+
+      |#section|
+        {{data}}
+        |data|
+      |/section|
+      ]
+    expected: |
+      [
+        I got interpolated.
+        |data|
+
+        {{data}}
+        I got interpolated.
+      ]
+
   - name: Partial Inheritence
     desc: Delimiters set in a parent template should not affect a partial.
     data: { value: 'yes' }
