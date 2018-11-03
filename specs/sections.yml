@@ -107,6 +107,25 @@ tests:
       121
       1
 
+  - name: Repeated Nested Names
+    desc: Nested sections can have the same name as the parent.
+    data:
+      a: { a: { a: 4 } }
+    template: '1{{#a}}2{{#a}}3{{a}}5{{/a}}6{{/a}}7'
+    expected: '1234567'
+
+  - name: Missing Repeated Nested Names
+    desc: Optimizations that avoid parsing falsey sections must handle nesting.
+    data: { }
+    template: '1{{#a}}2{{#a}}3{{a}}5{{/a}}6{{/a}}7'
+    expected: '17'
+
+  - name: Missing Repeated Name With Alternate Delimiter
+    desc: Optimizations that avoid parsing falsey sections must handle delimiter changes.
+    data: { }
+    template: '1{{#a}}2{{=| |=}}3{{/a}}4|/a|5'
+    expected: '15'
+
   - name: List
     desc: Lists should be iterated; list items should visit the context stack.
     data: { list: [ { item: 1 }, { item: 2 }, { item: 3 } ] }
