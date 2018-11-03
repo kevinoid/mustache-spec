@@ -101,6 +101,12 @@ tests:
     template: '"{{&power}} jiggawatts!"'
     expected: '"1.21 jiggawatts!"'
 
+  - name: Unpaired End Triple Mustache
+    desc: Extra end mustache should appear in output
+    data: { word: 'no' }
+    template: "{{word}}}"
+    expected: "no}"
+
   # Context Misses
 
   - name: Basic Context Miss Interpolation
