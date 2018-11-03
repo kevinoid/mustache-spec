@@ -20,6 +20,12 @@ tests:
     template: '({{=[ ]=}}[text])'
     expected: '(It worked!)'
 
+  - name: Triple Mustache With Alternate Delims
+    desc: "{ should still work and consume matching end"
+    data: { string: '&' }
+    template: "{{=| |=}}|{string}|"
+    expected: "&"
+
   - name: Sections
     desc: Delimiters set outside sections should persist.
     data: { section: true, data: 'I got interpolated.' }
