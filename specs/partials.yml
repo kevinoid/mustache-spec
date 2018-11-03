@@ -35,6 +35,20 @@ tests:
     partials: { partial: '*{{text}}*' }
     expected: '"*content*"'
 
+  - name: Local Context
+    desc: Context is passed from point where partial is instantiated
+    data: { a: { b: 'content' } }
+    template: '{{#a}}{{>partial}}{{/a}}'
+    partials: { partial: '{{b}}' }
+    expected: 'content'
+
+  - name: Local Context Stack
+    desc: Context stack is local to the partial (not passed)
+    data: { a: { b: 'content' }, c: 'nope' }
+    template: '{{#a}}"{{>partial}}"{{/a}}'
+    partials: { partial: '{{c}}' }
+    expected: '""'
+
   - name: Recursion
     desc: The greater-than operator should properly recurse.
     data: { content: "X", nodes: [ { content: "Y", nodes: [] } ] }
